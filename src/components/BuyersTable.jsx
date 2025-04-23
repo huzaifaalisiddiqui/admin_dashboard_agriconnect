@@ -37,6 +37,7 @@ function BuyersTable() {
           <tr>
             <th className="px-4 py-2 text-left text-gray-600">ID</th>
             <th className="px-4 py-2 text-left text-gray-600">Name</th>
+            <th className="px-4 py-2 text-left text-gray-600">Address</th>
             <th className="px-4 py-2 text-left text-gray-600">Actions</th>
           </tr>
         </thead>
@@ -45,6 +46,7 @@ function BuyersTable() {
             <tr key={buyer.userId} className="border-b hover:bg-gray-50">
               <td className="px-4 py-2">{buyer.userId}</td>
               <td className="px-4 py-2">{buyer.user.userName}</td>
+              <td className="px-4 py-2">{buyer.user.address}</td>
               <td className="px-4 py-2 flex gap-2 text-l">
               <button onClick={() => setSelectedBuyer(buyer)}>
                 <FaInfoCircle className="text-blue-500 hover:text-blue-700 text-2xl mr-3" />

@@ -6,6 +6,7 @@ import Dahsboard from './components/Dahsboard';
 import FarmersTable from './components/FarmersTable';
 import BuyersTable from './components/BuyersTable';
 import CropsTable from './components/CropsTable';
+import OrderTable from './components/OrderTable';
 
 function App() {
   const [activeComponent, setActiveComponent] = useState('Dashboard'); // Default component
@@ -20,6 +21,8 @@ function App() {
         return <BuyersTable />;
       case 'Crops':
         return <CropsTable />;
+      case 'Orders':
+        return <OrderTable />  ;
       default:
         return <Dahsboard />;
     }
