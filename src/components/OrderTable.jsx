@@ -19,19 +19,16 @@ const OrdersTable = () => {
           getFarmers(),
         ]);
 
-        // Create buyer lookup map: userId -> userName
         const buyerLookup = buyersData.reduce((map, buyer) => {
           map[buyer.userId] = buyer.user?.userName || 'Unknown';
           return map;
         }, {});
 
-        // Create farmer lookup map: farmerId -> userName
         const farmerLookup = farmersData.reduce((map, farmer) => {
           map[farmer.userId] = farmer.user?.userName || 'Unknown';
           return map;
         }, {});
 
-        // Filter valid orders
         const validOrders = ordersData.filter((order) => {
           const hasValidBuyer = order.order?.userId && buyerLookup[order.order.userId] !== 'Unknown';
           const hasValidFarmer = order.crop?.farmerId && farmerLookup[order.crop.farmerId] !== 'Unknown';
@@ -56,16 +53,16 @@ const OrdersTable = () => {
     setSelectedOrder(order);
   };
 
-  if (loading) return <div className="text-center py-4">Loading...</div>;
-  if (error) return <div className="text-center py-4 text-red-500">{error}</div>;
+  if (loading) return <div className="text-center py-4 dark:text-gray-200">Loading...</div>;
+  if (error) return <div className="text-center py-4 text-red-500 dark:text-red-400">{error}</div>;
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Orders</h2>
+    <div className="container mx-auto p-4 dark:bg-gray-900 dark:text-gray-200">
+      <h2 className="text-2xl font-bold mb-4 dark:text-gray-100">Orders</h2>
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border">
+        <table className="min-w-full bg-white border dark:bg-gray-800 dark:border-gray-700">
           <thead>
-            <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+            <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal dark:bg-gray-700 dark:text-gray-300">
               <th className="py-3 px-4 text-left">Order ID</th>
               <th className="py-3 px-4 text-left">Buyer Name</th>
               <th className="py-3 px-4 text-left">Seller Name</th>
@@ -79,7 +76,7 @@ const OrdersTable = () => {
             {orders.map((order) => (
               <tr
                 key={order.orderId}
-                className="border-b hover:bg-gray-50"
+                className="border-b hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-green-700"
               >
                 <td className="px-4 py-2">{order.orderId}</td>
                 <td className="px-4 py-2">
@@ -100,12 +97,12 @@ const OrdersTable = () => {
                   <span
                     className={`px-2 py-1 rounded text-white ${
                       order.status === 'Completed'
-                        ? 'bg-green-500'
+                        ? 'bg-green-500 dark:bg-green-600'
                         : order.status === 'Pending'
-                        ? 'bg-yellow-500'
+                        ? 'bg-yellow-500 dark:bg-yellow-600'
                         : order.status === 'ConfirmOrder'
-                        ? 'bg-blue-500'
-                        : 'bg-red-500'
+                        ? 'bg-blue-500 dark:bg-blue-600'
+                        : 'bg-red-500 dark:bg-red-600'
                     }`}
                   >
                     {order.status || 'Pending'}
@@ -116,7 +113,7 @@ const OrdersTable = () => {
                     onClick={() => handleViewDetails(order)}
                     title="View Details"
                   >
-                    <FaInfoCircle className="text-blue-500 hover:text-blue-700 text-2xl" />
+                    <FaInfoCircle className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-500 text-2xl" />
                   </button>
                 </td>
               </tr>
@@ -124,7 +121,7 @@ const OrdersTable = () => {
           </tbody>
         </table>
       </div>
-
+ 
       {/* Popup for Order Details */}
       {selectedOrder && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
