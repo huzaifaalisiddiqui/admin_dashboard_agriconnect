@@ -11,7 +11,8 @@ const api = axios.create({
 export const getFarmers = async () => {
   try {
     const response = await api.get('/api/Admin/Farmer');
-    return response.data.$values;
+    const farmers = response.data.$values;
+    return farmers.sort((a, b) => a.userId - b.userId);
   } catch (error) {
     console.error('Error fetching farmers:', error);
     throw error;
@@ -21,7 +22,8 @@ export const getFarmers = async () => {
 export const getBuyers = async () => {
   try {
     const response = await api.get('/api/Admin/Buyer');
-    return response.data.$values;
+    const buyers = response.data.$values;
+    return buyers.sort((a, b) => a.userId - b.userId);
   } catch (error) {
     console.error('Error fetching buyers:', error);
     throw error;
@@ -31,22 +33,25 @@ export const getBuyers = async () => {
 export const getCrops = async () => {
   try {
     const response = await api.get('/api/Crops');
-    return response.data.$values;
+    const crops = response.data.$values;
+    return crops.sort((a, b) => a.cropId - b.cropId);
   } catch (error) {
     console.error('Error fetching crops:', error);
     throw error;
   }
 };
 
-export const getOrders  = async () => {
+export const getOrders = async () => {
   try {
-    const response = await api.get('/api/Crops');
-    return response.data.$values;
+    const response = await api.get('/api/Order/order-crops');
+    const orders = response.data.$values;
+    return orders.sort((a, b) => a.orderId - b.orderId);
   } catch (error) {
-    console.error('Error fetching crops:', error);
+    console.error('Error fetching orders:', error);
     throw error;
   }
 };
+
 
 export const deactivateUser = async (id) => {
   try {
