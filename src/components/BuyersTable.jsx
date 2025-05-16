@@ -1,6 +1,6 @@
 // src/components/BuyersTable.jsx
 import React, { useState, useEffect } from 'react';
-import { getBuyers, deactivateUser } from '../services/api';
+import { getBuyers, deactivateUser, activateUser } from '../services/api';
 import { FaInfoCircle } from 'react-icons/fa';
 
 function BuyersTable() {
@@ -21,16 +21,27 @@ function BuyersTable() {
     deactivateUser(id)
       .then(() => {
         getBuyers().then(setBuyers); // Refresh data
-        alert(`Buyer ${id} has been deactivated`);
+        alert(`Buyer ID: ${id} has been deactivated`);
         getBuyers().then(setBuyers); // Refresh data
       })
-      .catch(() => alert('Failed to deactivate buyer'));
+      .catch(() => alert(`Failed to deactivate buyer ID: ${id}`));
   };
+
+  const handleActivate = (id) => {
+    activateUser(id)
+      .then(() => {
+        getBuyers().then(setBuyers); // Refresh data
+        alert(`Buyer ID: ${id} has been activated`);
+        getBuyers().then(setBuyers); // Refresh data
+      })
+      .catch(() => alert(`Failed to activate buyer ID: ${id}`));
+  }
 
   if (loading) return <div className="text-center text-gray-500 dark:text-gray-200">Loading...</div>;
 
   return (
     <div className="relative dark:bg-gray-900 dark:text-gray-200">
+      <h2 className="text-2xl font-bold m-2 p-2 dark:text-gray-100">Buyers</h2>
       {/* Buyers Table */}
       <table className="min-w-full bg-white shadow-md rounded-lg dark:bg-gray-800 dark:border-gray-700">
         <thead className="bg-gray-100 dark:bg-gray-700">
@@ -52,7 +63,8 @@ function BuyersTable() {
                 <FaInfoCircle className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-500 text-2xl mr-3" />
               </button>
               <button
-                onClick={() => handleDeactivate(buyer.userId)}
+                onClick={ buyer.user.isactive ? ()=>handleDeactivate(buyer.userId) : ()=>handleActivate(buyer.userId)}
+
                 className={`px-2 py-1 rounded text-white ${
                   buyer.user.isactive  ? 'bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700' : 'bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700'
                 }`}

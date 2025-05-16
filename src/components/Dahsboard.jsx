@@ -12,9 +12,9 @@ const Dahsboard = () => {
   return (
     <div className='grow p-6'>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6' >
-                <Card icon={<FaUsers />} title="Sellers" value="140" />
-                <Card icon={<FaBoxOpen />} title="Orders" value="90" />
-                <Card icon={<FaWheatAwn />} title="Crops" value="78" />
+                <Card icon={<FaUsers />} title="Sellers" value="25" />
+                <Card icon={<FaBoxOpen />} title="Orders" value="31" />
+                <Card icon={<FaWheatAwn />} title="Crops" value="27" />
                 <Card icon={<FaEnvelope />} title="Complaints" value="15" />
             </div>
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-4 '>

@@ -12,7 +12,7 @@ const [activeItem, setActiveItem] = useState('Dashboard'); // Default active ite
     { id: 'Farmers', icon: <FaUserGroup />, label: 'Farmers' },
     { id: 'Customers', icon: <FaUsers />, label: 'Customers' },
     { id: 'Crops', icon: <FaWheatAwn />, label: 'Crops' },
-    { id: 'Logout', icon: <FaSignOutAlt />, label: 'Logout' },
+    // { id: 'Logout', icon: <FaSignOutAlt />, label: 'Logout' },
   ];
 
   const handleMenuClick = (id) => {

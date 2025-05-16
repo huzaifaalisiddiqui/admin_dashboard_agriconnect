@@ -63,4 +63,14 @@ export const deactivateUser = async (id) => {
   }
 };
 
+export const activateUser = async (id) => {
+  try {
+    const response = await api.post(`/api/Admin/activeUser/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error activating user:', error);
+    throw error;
+  }
+};
+
 export default api;

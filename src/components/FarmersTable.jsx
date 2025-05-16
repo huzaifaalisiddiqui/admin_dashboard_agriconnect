@@ -1,6 +1,6 @@
 // src/components/FarmersTable.jsx
 import React, { useState, useEffect } from 'react';
-import { getFarmers, deactivateUser } from '../services/api';
+import { getFarmers, deactivateUser, activateUser } from '../services/api';
 import { FaInfoCircle } from 'react-icons/fa';
 
 function FarmersTable() {
@@ -21,15 +21,27 @@ function FarmersTable() {
     deactivateUser(id)
       .then(() => {
         getFarmers().then(setFarmers); // Refresh data
-        alert(`Farmer ${id} has been deactivated`);
+        alert(`Farmer ${id} has been deactivated successfully`);
+        getFarmers().then(setFarmers); // Refresh data
       })
       .catch(() => alert('Failed to deactivate farmer'));
   };
+
+   const handleActivate = (id) => {
+    activateUser(id)
+      .then(() => {
+        getFarmers().then(setFarmers); // Refresh data
+        alert(`Farmer ID : ${id} has been activated successfully`);
+        getFarmers().then(setFarmers); // Refresh data
+      })
+      .catch(() => alert('Failed to activate farmer'));
+   } 
 
   if (loading) return <div className="text-center text-gray-500 dark:text-gray-200">Loading...</div>;
 
   return (
     <div className="relative dark:bg-gray-900 dark:text-gray-200">
+      <h2 className="text-2xl font-bold m-2 p-2 dark:text-gray-100">Farmers</h2>
       {/* Farmers Table */}
       <table className="min-w-full bg-white shadow-md rounded-lg dark:bg-gray-800 dark:border-gray-700">
         <thead className="bg-gray-100 dark:bg-gray-700">
@@ -51,7 +63,7 @@ function FarmersTable() {
                   <FaInfoCircle className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-500 text-2xl mr-3" />
                 </button>   
                 <button             
-                   onClick={() => handleDeactivate(farmer.userId)}
+                   onClick={ farmer.user.isactive ? ()=>handleDeactivate(farmer.userId) : ()=>handleActivate(farmer.userId) }
                   className={`px-2 py-1 rounded text-white ${
                   farmer.user.isactive 
                       ? 'bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700' 
